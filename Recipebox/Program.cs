@@ -14,6 +14,19 @@ namespace RecipeBox
       WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
       builder.Services.AddControllersWithViews();
+      builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<RecipeBoxContext>()
+                .AddDefaultTokenProviders();
+      builder.Services.Configure<IdentityOptions>(options =>
+        {
+          options.Password.RequireDigit = false;
+          options.Password.RequireLowercase = false;
+          options.Password.RequireNonAlphanumeric = false;
+          options.Password.RequireUppercase = false;
+          options.Password.RequiredLength = 0;
+          options.Password.RequiredUniqueChars = 0;
+        });
+
 
       builder.Services.AddDbContext<RecipeBoxContext>(
                         dbContextOptions => dbContextOptions
@@ -30,6 +43,9 @@ namespace RecipeBox
       app.UseStaticFiles();
 
       app.UseRouting();
+
+      app.UseAuthentication();
+      app.UseAuthorization();
 
       app.MapControllerRoute(
           name: "default",

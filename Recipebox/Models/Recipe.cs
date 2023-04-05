@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
 using System;
@@ -11,12 +12,12 @@ namespace RecipeBox.Models
         public  string Name {get;set;}
         public string Instructions {get; set; }
         public int Ratings {get; set; }
+        public ApplicationUser User { get; set; }
         
         public List<Ingredient> Ingredients {get; set; } = new List<Ingredient>();
         public List<RecipeTag> JoinEntities {get; set; }
     }
 
-   
    
    
    
